@@ -9,17 +9,27 @@ object MyList {
     def compressR(list: List[A], result: List[A]): List[A] = (list, result) match {
       case (Nil, res) => res
       case(h :: tail, Nil) => compressR(tail, h :: Nil)
-      case (h :: Nil, r :: Nil) => if (h == r) result else h :: result
-      case (h :: tail, r :: resTail) => if(h == r) compressR(tail, result) else compressR(tail, h :: result)
+      case (h :: tail, r :: resTail) if h == r => compressR(tail, result)
+      case (h :: tail, r :: resTail) => compressR(tail, h :: result)
     }
     reverse(compressR(list, Nil))
   }
 
-  def flatten[A](list: List[A]): List[A] = list match {
-    case Nil => Nil
-    case (l : List[A]) :: tail => flatten(l) ++ flatten(tail)
-    case h :: tail => h :: flatten(tail)
+  private def flattenTailRecursive[A](result: List[A], input: List[A], remainingTail: List[A]): List[A] = input match {
+    case Nil if remainingTail == Nil => result
+    case Nil => flattenTailRecursive(result, remainingTail, Nil)
+    case (l: List[A]) :: Nil => flattenTailRecursive(result, l, remainingTail)
+    case (l: List[A]) :: tail => flattenTailRecursive(result, l, tail ::: remainingTail)
+    case h :: tail => flattenTailRecursive(h :: result, tail, remainingTail)
   }
+
+  private def flattenNonTailRecursive[A](list: List[A]): List[A] = list match {
+      case Nil => Nil
+      case (l : List[A]) :: tail => flattenNonTailRecursive(l) ++ flattenNonTailRecursive(tail)
+      case h :: tail => h :: flattenNonTailRecursive(tail)
+    }
+
+  def flatten[A](list: List[A]): List[A] = reverse(flattenTailRecursive(Nil, list, Nil))
 
   def isPalindrome[A](list: List[A]) = {
     def isPalindromeR(list: List[A], reversed: List[A]): Boolean = (list, reversed) match {

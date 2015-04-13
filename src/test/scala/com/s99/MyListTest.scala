@@ -135,6 +135,10 @@ class MyListTest extends FunSpec with Matchers {
     it("should return flattened list for List(List(List(2)))") {
       MyList.flatten(List(List(List(2)))) should be(List(2))
     }
+
+    it("should return flattened list for List(List(List(1,2)), 3)") {
+      MyList.flatten(List(List(List(1,2)), 3)) should be(List(1,2,3))
+    }
   }
 
   describe("removing consecutive duplicates from a list") {
