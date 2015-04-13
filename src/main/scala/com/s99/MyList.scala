@@ -3,7 +3,7 @@ package com.s99
 /**
  * @author: Kul.
  */
-object MyList {
+class MyList {
 
   def compress[A](list: List[A]): List[A] = {
     def compressR(list: List[A], result: List[A]): List[A] = (list, result) match {
