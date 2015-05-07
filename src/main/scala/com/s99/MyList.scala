@@ -7,6 +7,11 @@ import MyList._
  */
 class MyList[A](self: List[A]) {
 
+  def runLengthEncoding(): List[(Int, A)] = {
+    if (self.isEmpty) List()
+    else self.pack() myMap { l => (l.size, l.head) }
+  }
+
   def pack(): List[List[A]] = {
     if (self isEmpty) List(Nil)
     else {
@@ -28,15 +33,14 @@ class MyList[A](self: List[A]) {
     compressR(self, Nil).myReverse
   }
 
-  private def flattenTailRecursive[A](result: List[A], input: List[A], remainingTail: List[A]): List[A] = input match {
+  private def flattenTailRecursive(result: List[A], input: List[A], remainingTail: List[A]): List[A] = input match {
     case Nil if remainingTail == Nil => result
     case Nil => flattenTailRecursive(result, remainingTail, Nil)
-    case (l: List[A]) :: Nil => flattenTailRecursive(result, l, remainingTail)
     case (l: List[A]) :: tail => flattenTailRecursive(result, l, tail ::: remainingTail)
     case h :: tail => flattenTailRecursive(h :: result, tail, remainingTail)
   }
 
-  private def flattenNonTailRecursive[A](list: List[A]): List[A] = list match {
+  private def flattenNonTailRecursive(list: List[A]): List[A] = list match {
     case Nil => Nil
     case (l: List[A]) :: tail => flattenNonTailRecursive(l) ++ flattenNonTailRecursive(tail)
     case h :: tail => h :: flattenNonTailRecursive(tail)

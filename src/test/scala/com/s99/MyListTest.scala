@@ -166,24 +166,6 @@ class MyListTest extends FunSpec with Matchers {
     }
   }
 
-  describe("packing consecutive duplicates") {
-
-    it("should return List of Nil for empty List") {
-      Nil.pack() should be(List(Nil))
-    }
-
-    it("should return List(List(1)) for List(1)") {
-      List(1).pack() should be(List(List(1)))
-    }
-
-    it("should return List(List(1), List(2)) for List(1,2)") {
-      List(1, 2).pack() should be(List(List(1), List(2)))
-    }
-
-    it("should return List(List(1,1,1), List(2,2), List(1)) for List(1,1,1,2,2,1)") {
-      List(1, 1, 1, 2, 2, 1).pack() should be(List(List(1, 1, 1), List(2, 2), List(1)))
-    }
-  }
   describe("take while") {
     it("should return Nil for empty list") {
       List().myTakeWhile(_ => true) should be(Nil)
@@ -247,6 +229,40 @@ class MyListTest extends FunSpec with Matchers {
 
     it("should transform List(2,3) into List(4,6) for double function") {
       List(2, 3).myMap(_ * 2) should be(List(4, 6))
+    }
+  }
+
+  describe("packing consecutive duplicates") {
+
+    it("should return List of Nil for empty List") {
+      Nil.pack() should be(List(Nil))
+    }
+
+    it("should return List(List(1)) for List(1)") {
+      List(1).pack() should be(List(List(1)))
+    }
+
+    it("should return List(List(1), List(2)) for List(1,2)") {
+      List(1, 2).pack() should be(List(List(1), List(2)))
+    }
+
+    it("should return List(List(1,1,1), List(2,2), List(1)) for List(1,1,1,2,2,1)") {
+      List(1, 1, 1, 2, 2, 1).pack() should be(List(List(1, 1, 1), List(2, 2), List(1)))
+    }
+  }
+
+  describe("run length encoding of duplicate elements in a list") {
+
+    it("should return List of Nil for empty list") {
+      Nil.runLengthEncoding() should be(Nil)
+    }
+
+    it("should return List(List((1, 1))) for List(1)") {
+      List(1).runLengthEncoding() should be(List((1, 1)))
+    }
+
+    it("should return List((3, 1), (1, 2), (2, 3)) for List(1,1,1,2,3,3)") {
+      List(1, 1, 1, 2, 3, 3).runLengthEncoding() should be(List((3, 1), (1, 2), (2, 3)))
     }
   }
 }
