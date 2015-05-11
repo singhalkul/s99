@@ -235,6 +235,32 @@ class MyListTest extends FunSpec with Matchers {
         List((1, 2), (2, 3), (2, 5)).myFlatMap(decode) should be(List(2, 3, 3, 5, 5))
       }
     }
+
+    describe("13. direct run length encoding (without using pack method from previous example) of duplicate elements in a list") {
+
+      it("should return Nil for empty list") {
+        Nil.encodeDirect() should be(Nil)
+      }
+
+      it("should return List(List((1, 1))) for List(1)") {
+        List(1).encodeDirect() should be(List((1, 1)))
+      }
+
+      it("should return List((3, 1), (1, 2), (2, 3)) for List(1,1,1,2,3,3)") {
+        List(1, 1, 1, 2, 3, 3).encodeDirect() should be(List((3, 1), (1, 2), (2, 3)))
+      }
+    }
+
+    describe("14. duplicate the elements of a list") {
+
+      it("should return List(1, 1) for List(1)") {
+        List(1).duplicate should be(List(1, 1))
+      }
+
+      it("should return List(1, 1, 3, 3) for List(1, 3)") {
+        List(1, 3).duplicate should be(List(1, 1, 3, 3))
+      }
+    }
   }
 
   describe("My List method implementations") {

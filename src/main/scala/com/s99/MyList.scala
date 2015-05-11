@@ -7,6 +7,19 @@ import MyList._
  */
 class MyList[A](self: List[A]) {
 
+  def duplicate = self myFlatMap( e => List(e,e))
+
+  def encodeDirect(): List[(Int, A)] = {
+    if(self isEmpty) Nil
+    else {
+      val (packed, rest) = self.mySpan(_ == self.head)
+      (packed, rest) match {
+        case (p, Nil) => List((p.size, p.head))
+          case(p, r) => (p.size, p.head) :: r.encodeDirect()
+      }
+    }
+  }
+
   def runLengthEncoding() = {
     if (self.isEmpty) List()
     else self.pack() myMap { l => (l.size, l.head) }
