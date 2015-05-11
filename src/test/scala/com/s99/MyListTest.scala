@@ -199,6 +199,42 @@ class MyListTest extends FunSpec with Matchers {
         List(1, 1, 1, 2, 3, 3).runLengthEncoding() should be(List((3, 1), (1, 2), (2, 3)))
       }
     }
+
+    describe("11. modified run length encoding of duplicate elements in a list") {
+
+      it("should return Nil for empty list") {
+        Nil.runLengthEncodingModified() should be(Nil)
+      }
+
+      it("should return List(1) for List(1)") {
+        List(1).runLengthEncodingModified() should be(List(1))
+      }
+
+      it("should return List((2, 1)) for List(1, 1)") {
+        List(1, 1).runLengthEncodingModified() should be(List((2, 1)))
+      }
+
+      it("should return List((2, 1), 3) for List(1, 1, 3)") {
+        List(1, 1, 3).runLengthEncodingModified() should be(List((2, 1), 3))
+      }
+
+      it("should return List((3, 1), 2, (2, 3)) for List(1,1,1,2,3,3)") {
+        List(1, 1, 1, 2, 3, 3).runLengthEncodingModified() should be(List((3, 1), 2, (2, 3)))
+      }
+    }
+
+    describe("12. Decode a run-length encoded list") {
+
+      def decode[A](t: (Int, A)) = List.fill(t._1)(t._2)
+
+      it("should return List(2) for List((1, 2))") {
+        List((1, 2)).myFlatMap(decode) should be(List(2))
+      }
+
+      it("should return List(2, 3, 4, 5) for List((1, 2), (2, 3), (2, 5))") {
+        List((1, 2), (2, 3), (2, 5)).myFlatMap(decode) should be(List(2, 3, 3, 5, 5))
+      }
+    }
   }
 
   describe("My List method implementations") {
@@ -266,6 +302,29 @@ class MyListTest extends FunSpec with Matchers {
 
       it("should transform List(2,3) into List(4,6) for double function") {
         List(2, 3).myMap(_ * 2) should be(List(4, 6))
+      }
+    }
+
+    describe("flat map") {
+
+      it("should return Nil for List(Nil)") {
+        List(Nil).myFlatMap(a => a) should be(Nil)
+      }
+
+      it("should return List(1) for List(List(1))") {
+        List(List(1)).myFlatMap(a => a) should be(List(1))
+      }
+
+      it("should return List(1, 1) for List(List(1, 1))") {
+        List(List(1, 1)).myFlatMap(a => a) should be(List(1, 1))
+      }
+
+      it("should return List(1, 1) for List(List(1, 1), Nil)") {
+        List(List(1, 1), Nil).myFlatMap(a => a) should be(List(1, 1))
+      }
+
+      it("should return List(1, 1, 2, 3, 4) for List(List(1, 1), List(2), List(3, 4))") {
+        List(List(1, 1), List(2), List(3, 4)).myFlatMap(a => a) should be(List(1, 1, 2, 3, 4))
       }
     }
   }

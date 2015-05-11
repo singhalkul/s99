@@ -7,9 +7,14 @@ import MyList._
  */
 class MyList[A](self: List[A]) {
 
-  def runLengthEncoding(): List[(Int, A)] = {
+  def runLengthEncoding() = {
     if (self.isEmpty) List()
     else self.pack() myMap { l => (l.size, l.head) }
+  }
+
+  def runLengthEncodingModified() = {
+    if (self.isEmpty) List()
+    else self.pack() myMap { l => if (l.size == 1) l.head else (l.size, l.head) }
   }
 
   def pack(): List[List[A]] = {
@@ -113,6 +118,13 @@ class MyList[A](self: List[A]) {
       case head :: tail => myMapR(f, tail, f(head) :: result)
     }
     myMapR(f, self, Nil).reverse
+  }
+
+  def myFlatMap[B](f: A => Iterable[B]): Iterable[B] = {
+    self match {
+      case Nil => Nil
+      case head :: tail => f(head) ++ tail.myFlatMap(f)
+    }
   }
 }
 
