@@ -261,6 +261,17 @@ class MyListTest extends FunSpec with Matchers {
         List(1, 3).duplicate should be(List(1, 1, 3, 3))
       }
     }
+
+    describe("15. duplicate the elements of a list given number of times") {
+
+      it("should return List(1, 1) for List(1) duplicated 2 times") {
+        List(1).duplicateN(2) should be(List(1, 1))
+      }
+
+      it("should return List(1, 1, 1, 3, 3, 3) for List(1, 3) duplicated 3 times") {
+        List(1, 3).duplicateN(3) should be(List(1, 1, 1, 3, 3, 3))
+      }
+    }
   }
 
   describe("My List method implementations") {

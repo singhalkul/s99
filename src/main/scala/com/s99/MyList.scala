@@ -7,6 +7,8 @@ import MyList._
  */
 class MyList[A](self: List[A]) {
 
+  def duplicateN(times: Int) = self myFlatMap{ e => List.fill(times)(e) }
+
   def duplicate = self myFlatMap( e => List(e,e))
 
   def encodeDirect(): List[(Int, A)] = {
@@ -66,7 +68,7 @@ class MyList[A](self: List[A]) {
 
   def myFlatten(): List[A] = flattenTailRecursive(Nil, self, Nil).myReverse()
 
-  def isPalindrome() = {
+  def isPalindrome = {
     def isPalindromeR(list: List[A], reversed: List[A]): Boolean = (list, reversed) match {
       case (Nil, Nil) => true
       case (h1 :: tail1, h2 :: tail2) => h1 == h2 && isPalindromeR(tail1, tail2)
