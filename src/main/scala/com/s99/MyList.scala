@@ -7,17 +7,17 @@ import MyList._
  */
 class MyList[A](self: List[A]) {
 
-  def duplicateN(times: Int) = self myFlatMap{ e => List.fill(times)(e) }
+  def duplicateN(times: Int) = self myFlatMap { e => List.fill(times)(e) }
 
-  def duplicate = self myFlatMap( e => List(e,e))
+  def duplicate = self myFlatMap (e => List(e, e))
 
   def encodeDirect(): List[(Int, A)] = {
-    if(self isEmpty) Nil
+    if (self isEmpty) Nil
     else {
       val (packed, rest) = self.mySpan(_ == self.head)
       (packed, rest) match {
         case (p, Nil) => List((p.size, p.head))
-          case(p, r) => (p.size, p.head) :: r.encodeDirect()
+        case (p, r) => (p.size, p.head) :: r.encodeDirect()
       }
     }
   }
@@ -140,6 +140,18 @@ class MyList[A](self: List[A]) {
       case Nil => Nil
       case head :: tail => f(head) ++ tail.myFlatMap(f)
     }
+  }
+
+  def myGrouped(group: Int): List[List[A]] = {
+
+    def groupedR(list: List[A], acc: List[A], count: Int, result: List[List[A]]): List[List[A]] = list match {
+      case Nil => List(acc)
+      case head :: Nil if group == count => List(acc) ++ List(List(head))
+      case head :: Nil => List(acc :+ head)
+      case head :: tail if group == count => groupedR(tail, head :: Nil, 0, result ++ List(acc))
+      case head :: tail => groupedR(tail, acc :+ head, count + 1, result)
+    }
+    groupedR(self, Nil, 0, Nil)
   }
 }
 

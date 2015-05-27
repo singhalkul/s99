@@ -102,23 +102,23 @@ class MyListTest extends FunSpec with Matchers {
 
     describe("06. checking whether a list is palindrome") {
       it("should return true for empty list") {
-        Nil.isPalindrome() should be(right = true)
+        Nil.isPalindrome should be(right = true)
       }
 
       it("should return true for list with one element") {
-        List(1).isPalindrome() should be(right = true)
+        List(1).isPalindrome should be(right = true)
       }
 
       it("should return false for list 1,2") {
-        List(1, 2).isPalindrome() should be(right = false)
+        List(1, 2).isPalindrome should be(right = false)
       }
 
       it("should return true for list 1,2,1,2,1") {
-        List(1, 2, 1, 2, 1).isPalindrome() should be(right = true)
+        List(1, 2, 1, 2, 1).isPalindrome should be(right = true)
       }
 
       it("should return false for list 1,2,3") {
-        List(1, 2, 3).isPalindrome() should be(right = false)
+        List(1, 2, 3).isPalindrome should be(right = false)
       }
     }
 
@@ -362,6 +362,33 @@ class MyListTest extends FunSpec with Matchers {
 
       it("should return List(1, 1, 2, 3, 4) for List(List(1, 1), List(2), List(3, 4))") {
         List(List(1, 1), List(2), List(3, 4)).myFlatMap(a => a) should be(List(1, 1, 2, 3, 4))
+      }
+    }
+
+    describe("grouped") {
+
+      it("should return Nil for Nil") {
+        Nil.myGrouped(1) should be(List(Nil))
+      }
+
+      it("should return List(List(1)) for List(1) and group size as 1") {
+        List(1).myGrouped(1) should be(List(List(1)))
+      }
+
+      it("should return List(List(1), List(2)) for List(1, 2) and group size as 1") {
+        List(1, 2).myGrouped(1) should be(List(List(1), List(2)))
+      }
+
+      it("should return List(List(1)) for List(1) and group size as 3") {
+        List(1).myGrouped(3) should be(List(List(1)))
+      }
+
+      it("should return List(List(1, 2)) for List(1, 2) and group size as 2") {
+        List(1, 2).myGrouped(2) should be(List(List(1, 2)))
+      }
+
+      it("should return List(List(1, 2, 3), List(4)) for List(1, 2, 3, 4) and group size as 3") {
+        List(1, 2, 3, 4).myGrouped(3) should be(List(List(1, 2, 3), List(4)))
       }
     }
   }
