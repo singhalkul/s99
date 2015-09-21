@@ -60,12 +60,6 @@ class MyList[A](self: List[A]) {
     case h :: tail => flattenTailRecursive(h :: result, tail, remainingTail)
   }
 
-  private def flattenNonTailRecursive(list: List[A]): List[A] = list match {
-    case Nil => Nil
-    case (l: List[A]) :: tail => flattenNonTailRecursive(l) ++ flattenNonTailRecursive(tail)
-    case h :: tail => h :: flattenNonTailRecursive(tail)
-  }
-
   def myFlatten(): List[A] = flattenTailRecursive(Nil, self, Nil).myReverse()
 
   def isPalindrome = {
@@ -136,10 +130,14 @@ class MyList[A](self: List[A]) {
   }
 
   def myFlatMap[B](f: A => Iterable[B]): Iterable[B] = {
-    self match {
-      case Nil => Nil
-      case head :: tail => f(head) ++ tail.myFlatMap(f)
+
+    def myFlatMapR(f: A => Iterable[B], list: List[A], result: Iterable[B]): Iterable[B] = {
+      list match {
+        case Nil => result
+        case head :: tail => myFlatMapR(f, tail, result ++ f(head))
+      }
     }
+    myFlatMapR(f, self, Nil)
   }
 
   def myGrouped(group: Int): List[List[A]] = {
