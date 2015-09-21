@@ -272,6 +272,16 @@ class MyListTest extends FunSpec with Matchers {
         List(1, 3).duplicateN(3) should be(List(1, 1, 1, 3, 3, 3))
       }
     }
+
+    describe("16. Drop every Nth element from a list") {
+      it("should return List(1, 3, 5) for List(1, 2, 3, 4, 5, 6) after dropping every 2nd element") {
+        List(1, 2, 3, 4, 5, 6).dropN(2) should be(List(1, 3, 5))
+      }
+
+      it("should return empty list for List(1, 2, 3, 4, 5, 6) after dropping every 1 element") {
+        List(1, 2, 3, 4, 5, 6).dropN(1) should be(List())
+      }
+    }
   }
 
   describe("My List method implementations") {
@@ -389,6 +399,26 @@ class MyListTest extends FunSpec with Matchers {
 
       it("should return List(List(1, 2, 3), List(4)) for List(1, 2, 3, 4) and group size as 3") {
         List(1, 2, 3, 4).myGrouped(3) should be(List(List(1, 2, 3), List(4)))
+      }
+    }
+
+    describe("filter") {
+      it("should return Nil for Nil when filter is satisfied") {
+        Nil.myFilter(f => true) should be(Nil)
+      }
+
+      it("should return correct when filter is satisfied") {
+        List(1, 2, 3).myFilter(_ > 1) should be(List(2, 3))
+      }
+    }
+
+    describe("zip with index") {
+      it("should return Nil for empty list") {
+        Nil.myZipWithIndex should be(Nil)
+      }
+
+      it("should return zipped list for non-empty list") {
+        List(1, 2, 3).myZipWithIndex should be(List((1, 0), (2, 1), (3, 2)))
       }
     }
   }

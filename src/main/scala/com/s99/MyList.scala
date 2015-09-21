@@ -98,6 +98,8 @@ class MyList[A](self: List[A]) {
     case Nil => None
   }
 
+  def dropN(n: Int) = self.myZipWithIndex.myFilter(t => (t._2 + 1) % n != 0).map(_._1)
+
   def myLast(): Option[A] = self match {
     case Nil => None
     case a :: Nil => Some(a)
@@ -150,6 +152,24 @@ class MyList[A](self: List[A]) {
       case head :: tail => groupedR(tail, acc :+ head, count + 1, result)
     }
     groupedR(self, Nil, 0, Nil)
+  }
+
+  def myFilter(f: A => Boolean): List[A] = {
+
+    def myFilterR(f: A => Boolean, list: List[A], result: List[A]): List[A] = list match {
+      case Nil => result
+      case head :: tail => if(f(head)) myFilterR(f, tail, head :: result) else myFilterR(f, tail, result)
+    }
+
+    myFilterR(f, self, Nil).myReverse
+  }
+
+  def myZipWithIndex: List[(A, Int)] = {
+    def myZipWithIndexR(list: List[A], index: Int, result: List[(A, Int)]): List[(A, Int)] = list match {
+      case Nil => result
+      case head :: tail => myZipWithIndexR(tail, index + 1, (head, index) :: result)
+    }
+    myZipWithIndexR(self, 0, Nil).myReverse
   }
 }
 
