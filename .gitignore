@@ -1,2 +1,5 @@
 
-src/main/scala/.*sc
+.idea/
+project/
+src/main/scala/*.sc
+target/
