@@ -65,6 +65,7 @@ class MyList[A](self: List[A]) {
   def isPalindrome = {
     def isPalindromeR(list: List[A], reversed: List[A]): Boolean = (list, reversed) match {
       case (Nil, Nil) => true
+      case (Nil, _) | (_, Nil) => false
       case (h1 :: tail1, h2 :: tail2) => h1 == h2 && isPalindromeR(tail1, tail2)
     }
     isPalindromeR(self, self.myReverse)
@@ -170,6 +171,20 @@ class MyList[A](self: List[A]) {
       case head :: tail => myZipWithIndexR(tail, index + 1, (head, index) :: result)
     }
     myZipWithIndexR(self, 0, Nil).myReverse
+  }
+
+  def mySplit(n: Int): (List[A], List[A]) = {
+
+    def mySplitR(n: Int, list: List[A], result: List[A]): (List[A], List[A]) = {
+      (n, list) match {
+        case (0, _) => (result, list)
+        case (_, Nil) => (result, Nil)
+        case (_, head :: Nil) => (head :: result, Nil)
+        case (_, head :: tail) => mySplitR(n - 1, tail, head :: result)
+      }
+    }
+    val (first, second) = mySplitR(n, self, Nil)
+    (first.myReverse, second)
   }
 }
 

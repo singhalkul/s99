@@ -282,6 +282,32 @@ class MyListTest extends FunSpec with Matchers {
         List(1, 2, 3, 4, 5, 6).dropN(1) should be(List())
       }
     }
+
+    describe("17. Split a list into two parts") {
+      it("should return (Nil, Nil) when splitting an empty list") {
+        Nil.mySplit(1) shouldEqual (Nil, Nil)
+      }
+
+      it("should return (List(1), Nil) when splitting List(1)") {
+        List(1).mySplit(1) shouldEqual (List(1), Nil)
+      }
+
+      it("should return (List(1), List(2)) when splitting List(1,2) at 1") {
+        List(1, 2).mySplit(1) shouldEqual (List(1), List(2))
+      }
+
+      it("should return (List(1, 2), Nil) when splitting List(1,2) at 2") {
+        List(1, 2).mySplit(2) shouldEqual (List(1, 2), Nil)
+      }
+
+      it("should return (Nil, List(1, 2)) when splitting List(1,2) at 0") {
+        List(1, 2).mySplit(0) shouldEqual (Nil, List(1, 2))
+      }
+
+      it("should return (List(1, 2), List(3,4,5)) when splitting List(1,2,3,4,5) at 2") {
+        List(1, 2, 3, 4, 5).mySplit(2) shouldEqual (List(1, 2), List(3,4,5))
+      }
+    }
   }
 
   describe("My List method implementations") {
