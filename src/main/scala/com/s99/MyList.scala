@@ -186,6 +186,31 @@ class MyList[A](self: List[A]) {
     val (first, second) = mySplitR(n, self, Nil)
     (first.myReverse, second)
   }
+
+  def mySlice(from: Int, to: Int) = {
+    self.myDrop(from).myTake(to - from)
+  }
+
+  def myTake(n : Int) = {
+    def myTakeR(n: Int, list: List[A], result: List[A]): List[A] = {
+      (n, list) match {
+        case (0, _) | (_, Nil) => result
+        case (_, head :: tail) => myTakeR(n - 1, tail, head :: result)
+      }
+    }
+    if (n <= 0) Nil else myTakeR(n, self, Nil).myReverse
+  }
+
+  def myDrop(n: Int) = {
+    def myDropR(n: Int, list: List[A], result: List[A]): List[A] = {
+      (n, list) match {
+        case (0, _) | (_, Nil)=> result
+        case(_, head :: tail) => myDropR(n - 1, tail, tail)
+      }
+    }
+    if(n <= 0) self else myDropR(n, self, Nil)
+  }
+
 }
 
 object MyList {

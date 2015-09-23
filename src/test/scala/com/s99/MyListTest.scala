@@ -308,6 +308,21 @@ class MyListTest extends FunSpec with Matchers {
         List(1, 2, 3, 4, 5).mySplit(2) shouldEqual (List(1, 2), List(3,4,5))
       }
     }
+
+    describe("18. Extract a slice from a list") {
+
+      it("should return Nil when extracting slice from 0 to 0 in List(1)") {
+        List(1).mySlice(0, 0) shouldEqual Nil
+      }
+
+      it("should return List(1) when extracting slice from 0 to 1 in List(1)") {
+        List(1).mySlice(0, 1) shouldEqual List(1)
+      }
+
+      it("should return List(3, 4, 5) when extracting slice from 3 to 5 in List(0,1,2,3,4,5,6)") {
+        List(0,1,2,3,4,5,6).mySlice(3, 6) shouldEqual List(3,4,5)
+      }
+    }
   }
 
   describe("My List method implementations") {
@@ -445,6 +460,50 @@ class MyListTest extends FunSpec with Matchers {
 
       it("should return zipped list for non-empty list") {
         List(1, 2, 3).myZipWithIndex should be(List((1, 0), (2, 1), (3, 2)))
+      }
+    }
+
+    describe("take") {
+      it("should take 1 element from list of 3 when n = 1") {
+        List(1,2,3).myTake(1) shouldEqual List(1)
+      }
+
+      it("should take nothing from list of 3 when n = 0") {
+        List(1,2,3).myTake(0) shouldEqual Nil
+      }
+
+      it("should take nothing from list of 3 when n < 0") {
+        List(1,2,3).myTake(-1) shouldEqual Nil
+      }
+
+      it("should take all elements from list of 3 when n = 3") {
+        List(1,2,3).myTake(3) shouldEqual List(1, 2, 3)
+      }
+
+      it("should take all elements from list of 3 when n > 3") {
+        List(1,2,3).myTake(5) shouldEqual List(1, 2, 3)
+      }
+    }
+
+    describe("drop") {
+      it("should drop 1 element from list of 3 when n = 1") {
+        List(1,2,3).myDrop(1) shouldEqual List(2, 3)
+      }
+
+      it("should drop nothing from list of 3 when n = 0") {
+        List(1,2,3).myDrop(0) shouldEqual List(1,2,3)
+      }
+
+      it("should drop nothing from list of 3 when n < 0") {
+        List(1,2,3).myDrop(-1) shouldEqual List(1,2,3)
+      }
+
+      it("should drop all elements from list of 3 when n = 3") {
+        List(1,2,3).myDrop(3) shouldEqual Nil
+      }
+
+      it("should drop all elements from list of 3 when n > 3") {
+        List(1,2,3).myDrop(5) shouldEqual Nil
       }
     }
   }
