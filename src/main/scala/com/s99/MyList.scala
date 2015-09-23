@@ -50,7 +50,7 @@ class MyList[A](self: List[A]) {
       case (h :: tail, r :: resTail) if h == r => compressR(tail, result)
       case (h :: tail, r :: resTail) => compressR(tail, h :: result)
     }
-    compressR(self, Nil).myReverse
+    compressR(self, Nil).myReverse()
   }
 
   private def flattenTailRecursive(result: List[A], input: List[A], remainingTail: List[A]): List[A] = input match {
@@ -68,7 +68,7 @@ class MyList[A](self: List[A]) {
       case (Nil, _) | (_, Nil) => false
       case (h1 :: tail1, h2 :: tail2) => h1 == h2 && isPalindromeR(tail1, tail2)
     }
-    isPalindromeR(self, self.myReverse)
+    isPalindromeR(self, self.myReverse())
   }
 
   def myLength(): Int = {
@@ -162,7 +162,7 @@ class MyList[A](self: List[A]) {
       case head :: tail => if(f(head)) myFilterR(f, tail, head :: result) else myFilterR(f, tail, result)
     }
 
-    myFilterR(f, self, Nil).myReverse
+    myFilterR(f, self, Nil).myReverse()
   }
 
   def myZipWithIndex: List[(A, Int)] = {
@@ -170,7 +170,7 @@ class MyList[A](self: List[A]) {
       case Nil => result
       case head :: tail => myZipWithIndexR(tail, index + 1, (head, index) :: result)
     }
-    myZipWithIndexR(self, 0, Nil).myReverse
+    myZipWithIndexR(self, 0, Nil).myReverse()
   }
 
   def mySplit(n: Int): (List[A], List[A]) = {
@@ -184,7 +184,7 @@ class MyList[A](self: List[A]) {
       }
     }
     val (first, second) = mySplitR(n, self, Nil)
-    (first.myReverse, second)
+    (first.myReverse(), second)
   }
 
   def mySlice(from: Int, to: Int) = {
@@ -198,7 +198,7 @@ class MyList[A](self: List[A]) {
         case (_, head :: tail) => myTakeR(n - 1, tail, head :: result)
       }
     }
-    if (n <= 0) Nil else myTakeR(n, self, Nil).myReverse
+    if (n <= 0) Nil else myTakeR(n, self, Nil).myReverse()
   }
 
   def myDrop(n: Int) = {
