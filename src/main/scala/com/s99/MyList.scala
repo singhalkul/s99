@@ -107,6 +107,8 @@ class MyList[A](self: List[A]) {
     case a :: tail => tail.myLast()
   }
 
+  def rotateLeft(n: Int): List[A] = if(n < 0) rotateLeft(self.size - n.abs) else self.myDrop(n) ::: self.myTake(n)
+
   def mySpan(f: A => Boolean) = (self.myTakeWhile(f), self.myDropWhile(f))
 
   def myTakeWhile(f: A => Boolean) = {

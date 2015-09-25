@@ -323,6 +323,17 @@ class MyListTest extends FunSpec with Matchers {
         List(0,1,2,3,4,5,6).mySlice(3, 6) shouldEqual List(3,4,5)
       }
     }
+
+    describe("19. Rotate a list N places to the left") {
+
+      it("should rotate list by 3 places from beginning when n = 3") {
+        List(1,2,3,4,5,6,7,8,9,10).rotateLeft(3) shouldEqual List(4,5,6,7,8,9,10,1,2,3)
+      }
+
+      it("should rotate list by 3 places from end when n = -3") {
+        List(1,2,3,4,5,6,7,8,9,10).rotateLeft(-3) shouldEqual List(8,9,10,1,2,3,4,5,6,7)
+      }
+    }
   }
 
   describe("My List method implementations") {
