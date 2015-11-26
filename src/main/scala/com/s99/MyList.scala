@@ -213,6 +213,16 @@ class MyList[A](self: List[A]) {
     if(n <= 0) self else myDropR(n, self, Nil)
   }
 
+  def removeKthElement(k: Int) = {
+    val (first, second) = self.mySplit(k)
+    (first ::: second.tail, second. head)
+  }
+
+  def insertAt(k: Int, a: A) = {
+    val (first, second) = self.mySplit(k)
+    first ::: a :: second
+  }
+
 }
 
 object MyList {

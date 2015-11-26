@@ -334,6 +334,37 @@ class MyListTest extends FunSpec with Matchers {
         List(1,2,3,4,5,6,7,8,9,10).rotateLeft(-3) shouldEqual List(8,9,10,1,2,3,4,5,6,7)
       }
     }
+
+    describe("20. Remove the Kth element from a list") {
+
+      it("should remove 2nd element from the list") {
+        List(1,2,3,4).removeKthElement(1) shouldEqual (List(1,3,4), 2)
+      }
+
+      it("should remove last element from the list") {
+        List(1,2,3,4,5,6,7,8,9).removeKthElement(8) shouldEqual (List(1,2,3,4,5,6,7,8), 9)
+      }
+
+      it("should remove first element from the list") {
+        List(1,2,3).removeKthElement(0) shouldEqual (List(2,3), 1)
+      }
+    }
+
+    describe("21. Insert an element at a given position into a list") {
+
+      it("should insert element at 2nd position") {
+        List(1,2,3,4).insertAt(1, 5) shouldEqual List(1,5,2,3,4)
+      }
+
+      it("should insert element at starting of list") {
+        List(1,2,3,4).insertAt(0, 5) shouldEqual List(5,1,2,3,4)
+      }
+
+      it("should insert element at end of list") {
+        List(1,2,3,4).insertAt(4, 5) shouldEqual List(1,2,3,4,5)
+      }
+    }
+
   }
 
   describe("My List method implementations") {
