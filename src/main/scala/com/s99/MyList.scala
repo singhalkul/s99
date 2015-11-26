@@ -223,8 +223,19 @@ class MyList[A](self: List[A]) {
     first ::: a :: second
   }
 
+
+
 }
 
 object MyList {
   implicit def enhancedList[T](self: List[T]): MyList[T] = new MyList(self)
+
+  def createListForRange(from: Int, to: Int) = {
+
+    def createR(from: Int, to: Int, result: List[Int]): List[Int] = {
+      if(from == to) from :: result
+      else createR(from, to - 1, to :: result)
+    }
+    createR(from, to, Nil)
+  }
 }

@@ -365,6 +365,16 @@ class MyListTest extends FunSpec with Matchers {
       }
     }
 
+    describe("22. Create a list containing all integers within a given range.") {
+      it("should create List(4,5,6,7,8,9) from range 4 to 9") {
+        MyList.createListForRange(4, 9) shouldEqual List(4,5,6,7,8,9)
+      }
+
+      it("should create List(4,5,6,7,8,9) from range -4 to 4") {
+        MyList.createListForRange(-4, 4) shouldEqual List(-4,-3,-2,-1,0,1,2,3,4)
+      }
+    }
+
   }
 
   describe("My List method implementations") {
