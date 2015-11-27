@@ -390,6 +390,15 @@ class MyListTest extends FunSpec with Matchers {
         MyList.lotto(6, 21).size shouldEqual 6
       }
     }
+
+    describe("25. Generate a random permutation of the elements of a list") {
+      it("should remove 3 elements randomly from a list of 8") {
+        val input = List(1,2,3,4,5,6,7,8)
+        val output = input.randomPermutate()
+        output.toSet.subsetOf(input.toSet) shouldBe true
+        output shouldNot equal(input)
+      }
+    }
   }
 
   describe("My List method implementations") {
