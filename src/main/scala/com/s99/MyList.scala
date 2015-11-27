@@ -2,6 +2,8 @@ package com.s99
 
 import MyList._
 
+import scala.util.Random
+
 /**
  * author: Kul
  */
@@ -223,7 +225,18 @@ class MyList[A](self: List[A]) {
     first ::: a :: second
   }
 
+  def randomDelete(count: Int) = {
+    val random = new Random()
 
+    def randomDeleteR(count: Int, list: List[A], result: List[A]): List[A] = {
+      if(count == 0) result else {
+        val k = random.nextInt(list.size)
+        val (rest, deleted) = list.removeKthElement(k)
+        randomDeleteR(count - 1, rest, deleted :: result)
+      }
+    }
+    randomDeleteR(count, self, Nil)
+  }
 
 }
 
@@ -237,5 +250,9 @@ object MyList {
       else createR(from, to - 1, to :: result)
     }
     createR(from, to, Nil)
+  }
+
+  def lotto(k: Int, maxRange: Int) = {
+    createListForRange(1, maxRange).randomDelete(k)
   }
 }

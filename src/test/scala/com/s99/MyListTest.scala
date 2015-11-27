@@ -375,6 +375,21 @@ class MyListTest extends FunSpec with Matchers {
       }
     }
 
+    describe("23. Extract a given number of randomly selected elements from a list") {
+      it("should remove 3 elements randomly from a list of 8") {
+        List(1,2,3,4,5,6,7,8).randomDelete(3).size shouldEqual 3
+      }
+
+      it("should remove 3 elements randomly from a list of 3") {
+        List(1,2,3).randomDelete(3).size shouldEqual 3
+      }
+    }
+
+    describe("24. Lotto: Draw N different random numbers from the set 1..M") {
+      it("should extract 6 random elements from range 1 to 21") {
+        MyList.lotto(6, 21).size shouldEqual 6
+      }
+    }
   }
 
   describe("My List method implementations") {
